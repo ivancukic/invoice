@@ -9,8 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -29,9 +27,13 @@ public class Invoice {
 	@Column
 	private LocalDate issueDate;
 	
-	@ManyToOne
-	@JoinColumn(name = "customer_id", referencedColumnName = "id")
-	private Customer customer;
+	// Customer
+	@Column
+	private String firstName;	
+	@Column
+	private String lastName;
+	@Column
+	private String address;
 	
 	@Column
 	private Long totalAmount;
@@ -43,14 +45,14 @@ public class Invoice {
 
 	}
 
-	public Invoice(String invoiceNumber, LocalDate issueDate, Customer customer, Long totalAmount,
-			List<InvoiceItem> items) {
-		super();
+	public Invoice(String invoiceNumber, LocalDate issueDate, String firstName, String lastName, String address,
+		Long totalAmount) {
 		this.invoiceNumber = invoiceNumber;
 		this.issueDate = issueDate;
-		this.customer = customer;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
 		this.totalAmount = totalAmount;
-		this.items = items;
 	}
 
 	public Long getId() {
@@ -77,12 +79,28 @@ public class Invoice {
 		this.issueDate = issueDate;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public Long getTotalAmount() {
@@ -103,8 +121,9 @@ public class Invoice {
 
 	@Override
 	public String toString() {
-		return "Invoice [id=" + id + ", invoiceNumber=" + invoiceNumber + ", issueDate=" + issueDate + ", customer="
-				+ customer + ", totalAmount=" + totalAmount + ", items=" + items + "]";
+		return "Invoice [id=" + id + ", invoiceNumber=" + invoiceNumber + ", issueDate=" + issueDate + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", address=" + address + ", totalAmount=" + totalAmount
+				+ ", items=" + items + "]";
 	}
 	
 }

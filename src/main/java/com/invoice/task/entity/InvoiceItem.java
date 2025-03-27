@@ -1,7 +1,5 @@
 package com.invoice.task.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,24 +24,26 @@ public class InvoiceItem {
 	@Column
 	private Integer amount;
 	
-	@ManyToOne
-	@JoinColumn(name = "invoice_id", referencedColumnName = "id", nullable = false)
-	@JsonIgnoreProperties("items")
-	private Invoice invoice;
+	// Product
+	@Column
+	private String name;
+	@Column
+	private Integer price;
 	
 	@ManyToOne
-	@JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
-	private Product product;
+	@JoinColumn(name = "invoice_id", referencedColumnName = "id", nullable = false)
+	private Invoice invoice;
 
 	public InvoiceItem() {
 		
 	}
 
-	public InvoiceItem(Integer quantity, Integer amount, Invoice invoice, Product product) {
+	public InvoiceItem(Integer quantity, Integer amount, String name, Integer price, Invoice invoice) {
 		this.quantity = quantity;
 		this.amount = amount;
+		this.name = name;
+		this.price = price;
 		this.invoice = invoice;
-		this.product = product;
 	}
 
 	public Long getId() {
@@ -78,18 +78,26 @@ public class InvoiceItem {
 		this.invoice = invoice;
 	}
 
-	public Product getProduct() {
-		return product;
+	public String getName() {
+		return name;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 	@Override
 	public String toString() {
-		return "InvoiceItem [id=" + id + ", quantity=" + quantity + ", amount=" + amount + ", invoice=" + invoice
-				+ ", product=" + product + "]";
+		return "InvoiceItem [id=" + id + ", quantity=" + quantity + ", amount=" + amount + ", name=" + name + ", price="
+				+ price + ", invoice=" + invoice + "]";
 	}
 	
 }

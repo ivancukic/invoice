@@ -1,14 +1,13 @@
 package com.invoice.task.exception;
 
-public class ProductNotFoundException extends RuntimeException {
+public class ResourceNotFoundException extends RuntimeException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ProductNotFoundException(String message) {
+	public ResourceNotFoundException(String message) {
 		super(message);
-	}	
-
+	}
 }
