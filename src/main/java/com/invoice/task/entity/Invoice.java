@@ -1,15 +1,12 @@
 package com.invoice.task.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,36 +14,36 @@ import jakarta.persistence.Table;
 public class Invoice {
 	
 	@Id
-	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(unique = true, nullable = false)
-	private String invoiceNumber;
-	
-	@Column
-	private LocalDate issueDate;
-	
-	// Customer
-	@Column
-	private String firstName;	
-	@Column
-	private String lastName;
-	@Column
-	private String address;
-	
-	@Column
-	private Long totalAmount;
-	
-	@OneToMany(mappedBy = "invoice", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true)
-	private List<InvoiceItem> items;
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
+    private String invoiceNumber;
+
+    @Column
+    private LocalDate issueDate;
+
+    @Column
+    private String firstName;
+
+    @Column
+    private String lastName;
+
+    @Column
+    private String address;
+
+    @Column
+    private Long totalAmount;
 
 	public Invoice() {
 
 	}
 
-	public Invoice(String invoiceNumber, LocalDate issueDate, String firstName, String lastName, String address,
-		Long totalAmount) {
+	public Invoice(Long id, String invoiceNumber, LocalDate issueDate, String firstName, String lastName,
+			String address, Long totalAmount) {
+	
+		this.id = id;
 		this.invoiceNumber = invoiceNumber;
 		this.issueDate = issueDate;
 		this.firstName = firstName;
@@ -111,19 +108,10 @@ public class Invoice {
 		this.totalAmount = totalAmount;
 	}
 
-	public List<InvoiceItem> getItems() {
-		return items;
-	}
-
-	public void setItems(List<InvoiceItem> items) {
-		this.items = items;
-	}
-
 	@Override
 	public String toString() {
 		return "Invoice [id=" + id + ", invoiceNumber=" + invoiceNumber + ", issueDate=" + issueDate + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", address=" + address + ", totalAmount=" + totalAmount
-				+ ", items=" + items + "]";
+				+ firstName + ", lastName=" + lastName + ", address=" + address + ", totalAmount=" + totalAmount + "]";
 	}
 	
 }

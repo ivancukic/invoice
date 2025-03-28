@@ -14,31 +14,32 @@ import jakarta.persistence.Table;
 public class InvoiceItem {
 	
 	@Id
-	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column
 	private Integer quantity;
 	
 	@Column
 	private Integer amount;
-	
-	// Product
+
 	@Column
 	private String name;
+
 	@Column
 	private Integer price;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "invoice_id", referencedColumnName = "id", nullable = false)
 	private Invoice invoice;
 
 	public InvoiceItem() {
-		
+
 	}
 
-	public InvoiceItem(Integer quantity, Integer amount, String name, Integer price, Invoice invoice) {
+	public InvoiceItem(Long id, Integer quantity, Integer amount, String name, Integer price, Invoice invoice) {
+		this.id = id;
 		this.quantity = quantity;
 		this.amount = amount;
 		this.name = name;
@@ -70,14 +71,6 @@ public class InvoiceItem {
 		this.amount = amount;
 	}
 
-	public Invoice getInvoice() {
-		return invoice;
-	}
-
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -92,6 +85,14 @@ public class InvoiceItem {
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 
 	@Override

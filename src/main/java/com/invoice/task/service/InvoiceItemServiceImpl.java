@@ -35,7 +35,7 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
 	@Override
 	@Transactional
 	public InvoiceItemDTO save(InvoiceItemDTO dto) {
-		Invoice invoice = invoiceRepository.findById(dto.getInvoiceId())
+		Invoice invoice = invoiceRepository.findById(dto.getInvoice().getId())
 										   .orElseThrow(() -> new InvoiceNotFoundException("Invoice not found"));
 		
 		InvoiceItem item = InvoiceItemMapper.convertToEntity(dto, invoice);
@@ -64,25 +64,25 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
 	@Override
 	public InvoiceItemDTO update(Long id, InvoiceItemDTO dto) {
 
-		if (dto.getId() == null || !Objects.equals(id, dto.getId())) {
-	           throw new BadRequestAlertException("InvoiceItem ID mismatch: Provided ID does not match the entity ID.");
-	    }
-		
-		InvoiceItem updatedItem = invoiceItemRepository.findById(id)
-												.orElseThrow(() -> new ResourceNotFoundException("InvoiceItem not found with id: " + id));
-		
-		updatedItem.setQuantity(dto.getQuantity());
-		updatedItem.setAmount(dto.getAmount());
-		updatedItem.setName(dto.getName());
-		updatedItem.setPrice(dto.getPrice());
-		
-		Invoice invoice = invoiceRepository.findById(dto.getInvoiceId())
-									.orElseThrow(() -> new InvoiceNotFoundException("Invoice not found"));
-		updatedItem.setInvoice(invoice);
-		
-		InvoiceItem saveUpdateItem = invoiceItemRepository.save(updatedItem);
-		
-		return InvoiceItemMapper.convertToDto(saveUpdateItem);
+		 if (dto.getId() == null || !Objects.equals(id, dto.getId())) {
+	            throw new BadRequestAlertException("InvoiceItem ID mismatch: Provided ID does not match the entity ID.");
+	        }
+
+	        InvoiceItem updatedItem = invoiceItemRepository.findById(id)
+	                .orElseThrow(() -> new ResourceNotFoundException("InvoiceItem not found with id: " + id));
+
+	        updatedItem.setQuantity(dto.getQuantity());
+	        updatedItem.setAmount(dto.getAmount());
+	        updatedItem.setName(dto.getName());
+	        updatedItem.setPrice(dto.getPrice());
+
+	        Invoice invoice = invoiceRepository.findById(dto.getInvoice().getId())
+	                .orElseThrow(() -> new InvoiceNotFoundException("Invoice not found"));
+	        updatedItem.setInvoice(invoice);
+
+	        InvoiceItem saveUpdateItem = invoiceItemRepository.save(updatedItem);
+
+	      return InvoiceItemMapper.convertToDto(saveUpdateItem);
 	}
 	
 	@Override

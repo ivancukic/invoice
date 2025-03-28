@@ -1,18 +1,17 @@
 package com.invoice.task.dto;
 
 import java.time.LocalDate;
-import java.util.List;
+
 
 public class InvoiceDTO {
-	
-	private Long id;
+
+    private Long id;
     private String invoiceNumber;
     private LocalDate issueDate;
     private String firstName;
     private String lastName;
     private String address;
     private Long totalAmount;
-    private List<InvoiceItemDTO> items;
     
     
 	public InvoiceDTO() {
@@ -20,7 +19,8 @@ public class InvoiceDTO {
 	}
 
 	public InvoiceDTO(Long id, String invoiceNumber, LocalDate issueDate, String firstName, String lastName,
-			String address, Long totalAmount, List<InvoiceItemDTO> items) {
+			String address, Long totalAmount) {
+
 		this.id = id;
 		this.invoiceNumber = invoiceNumber;
 		this.issueDate = issueDate;
@@ -28,7 +28,6 @@ public class InvoiceDTO {
 		this.lastName = lastName;
 		this.address = address;
 		this.totalAmount = totalAmount;
-		this.items = items;
 	}
 
 	public Long getId() {
@@ -87,11 +86,4 @@ public class InvoiceDTO {
 		this.totalAmount = totalAmount;
 	}
 
-	public List<InvoiceItemDTO> getItems() {
-		return items;
-	}
-
-	public void setItems(List<InvoiceItemDTO> items) {
-		this.items = items;
-	}
 }

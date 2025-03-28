@@ -18,8 +18,8 @@ import com.invoice.task.dto.InvoiceItemDTO;
 import com.invoice.task.exception.InvoiceItemNotFoundException;
 import com.invoice.task.service.InvoiceItemService;
 
-@RequestMapping("/api/invoice-items")
 @RestController
+@RequestMapping("/api/invoice-items")
 public class InvoiceItemController {
 	
 	private final InvoiceItemService invoiceItemService;
